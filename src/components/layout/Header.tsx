@@ -58,45 +58,47 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-surface shadow-sm">
       <div className="mx-auto flex h-[70px] max-w-[1300px] items-center justify-between px-[70px]">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded bg-brand-600 text-sm font-bold text-white">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
             同
           </div>
           <div>
-            <div className="text-base font-semibold text-ink-900">同桌英语自学网</div>
+            <div className="text-base font-extrabold tracking-tight text-ink-900">同桌英语自学网</div>
             <div className="text-[11px] text-ink-400">让雅思学习更简单</div>
           </div>
         </div>
         <button
           type="button"
-          className="rounded-full border border-ink-900 px-4 py-1.5 text-xs font-medium text-ink-900 hover:bg-ink-900 hover:text-white"
+          className="rounded-full bg-brand-600 px-5 py-2 text-xs font-semibold text-white hover:bg-brand-700"
         >
           机构/老师入驻
         </button>
       </div>
-      <nav className="bg-[#383838]">
-        <div className="mx-auto flex h-[50px] max-w-[1300px] items-center justify-between px-[70px] text-sm text-white">
+      <nav className="border-y border-ink-400/10 bg-surface">
+        <div className="mx-auto flex h-[56px] max-w-[1300px] items-center justify-between px-[70px] text-sm font-medium text-ink-800">
           <ul className="flex h-full items-stretch">
             {NAV_ITEMS.map((item) => (
               <li key={item.label} className="group relative flex items-center">
                 <NavLink
                   to={item.to}
                   className={({ isActive }) =>
-                    `flex h-full items-center gap-1 px-4 ${isActive ? 'bg-brand-600 text-white' : 'hover:bg-white/10'}`
+                    `flex h-full items-center gap-1.5 px-4 ${isActive ? 'font-semibold text-ink-900' : 'text-ink-600 hover:text-ink-900'}`
                   }
                 >
                   {item.label}
                   {item.hot && (
-                    <span className="rounded bg-brand-500 px-1 text-[10px] leading-4">hot</span>
+                    <span className="rounded-full bg-brand-600 px-2 py-0.5 text-[10px] font-semibold leading-4 text-white">
+                      hot
+                    </span>
                   )}
                 </NavLink>
                 {item.dropdown && (
-                  <ul className="absolute left-0 top-full hidden min-w-[180px] flex-col rounded-b bg-surface py-1 text-ink-800 shadow-lg group-hover:flex">
+                  <ul className="absolute left-0 top-full hidden min-w-[180px] flex-col rounded-2xl border border-ink-400/10 bg-surface py-2 text-ink-800 shadow-lg group-hover:flex">
                     {item.dropdown.map((sub) => (
                       <li key={sub.to}>
                         <NavLink
                           to={sub.to}
                           className={({ isActive }) =>
-                            `block px-4 py-2 text-sm hover:bg-brand-50 ${isActive ? 'text-brand-600' : ''}`
+                            `mx-2 block rounded-full px-4 py-2 text-sm hover:bg-surface-alt ${isActive ? 'font-semibold text-ink-900' : ''}`
                           }
                         >
                           {sub.label}
@@ -108,11 +110,19 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-4">
-            <button type="button" onClick={() => setLoginOpen(true)} className="hover:text-brand-300">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setLoginOpen(true)}
+              className="rounded-full border border-ink-900/15 px-4 py-1.5 text-ink-800 hover:bg-surface-alt"
+            >
               登录
             </button>
-            <button type="button" onClick={() => setMembershipOpen(true)} className="hover:text-brand-300">
+            <button
+              type="button"
+              onClick={() => setMembershipOpen(true)}
+              className="rounded-full bg-accent-500 px-4 py-1.5 text-white hover:bg-accent-600"
+            >
               注册
             </button>
           </div>

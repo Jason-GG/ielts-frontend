@@ -6,7 +6,7 @@ export function SelfStudyCampPage() {
   return (
     <div>
       <Breadcrumb current="听阅自学营" />
-      <section className="rounded-lg bg-ink-900 p-8 text-white">
+      <section className="rounded-lg bg-brand-600 p-8 text-white">
         <h1 className="text-2xl font-bold">我为什么劝你自学</h1>
         <p className="mt-2 max-w-xl text-sm text-white/70">刘夏来 · 4 周 / 6 步学习方法</p>
       </section>

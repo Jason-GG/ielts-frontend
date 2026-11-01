@@ -1,24 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #f5f6fb;
-  --color-brand-100: #e8eaf7;
-  --color-brand-200: #c9cdec;
-  --color-brand-300: #a1a8dc;
-  --color-brand-400: #7781c9;
-  --color-brand-500: #5661b3;
-  --color-brand-600: #434c93;
-  --color-brand-700: #363c76;
-  --color-brand-800: #2b3060;
-  --color-brand-900: #1f2347;
+  /* violet-based brand palette (no pure black surfaces) */
+  --color-brand-50: #f5f3ff;
+  --color-brand-100: #ebe7fd;
+  --color-brand-200: #d4c9fa;
+  --color-brand-300: #b3a0f3;
+  --color-brand-400: #9579ec;
+  --color-brand-500: #7c6cf0;
+  --color-brand-600: #6952e0;
+  --color-brand-700: #5640c0;
+  --color-brand-800: #43339a;
+  --color-brand-900: #2e2470;
 
-  --color-ink-900: #1f1f1f;
-  --color-ink-800: #333333;
-  --color-ink-600: #666666;
-  --color-ink-400: #8a8a8a;
+  --color-ink-900: #1f1f29;
+  --color-ink-800: #33333f;
+  --color-ink-600: #5e5e6b;
+  --color-ink-400: #8f8f9a;
 
   --color-surface: #ffffff;
-  --color-surface-alt: #f5f7fa;
+  --color-surface-alt: #f0f0f0;
+
+  /* landing-page accent set: orange CTA, lavender hero panel, violet decorative circles */
+  --color-accent-50: #fff4ec;
+  --color-accent-100: #ffe3cc;
+  --color-accent-500: #f97316;
+  --color-accent-600: #ea580c;
+
+  --color-lavender-50: #f5f3ff;
+  --color-lavender-100: #ebe7fd;
+  --color-violet-300: #c4b8f7;
+  --color-violet-500: #7c6cf0;
+  --color-violet-600: #6952e0;
+
+  --color-navy-900: #19152e;
 
   --font-sans: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
 }

@@ -86,7 +86,7 @@ export function SpeakingBankPage() {
         </aside>
       </div>
       {selected.length > 0 && (
-        <div className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-4 rounded-full bg-ink-900 px-6 py-3 text-sm text-white shadow-lg">
+        <div className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-4 rounded-full bg-brand-600 px-6 py-3 text-sm text-white shadow-lg">
           <span>已选 {selected.length} 题</span>
           <button type="button" className="rounded-full bg-brand-600 px-4 py-1.5">
             生成练习集

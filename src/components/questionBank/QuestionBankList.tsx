@@ -23,8 +23,8 @@ export function QuestionBankList({ title, books, types, scenes }: QuestionBankLi
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-semibold text-ink-900">{title}</h1>
-      <div className="mb-4 rounded-md border border-ink-400/15 bg-surface p-4">
+      <h1 className="mb-4 text-xl font-bold text-ink-900">{title}</h1>
+      <div className="mb-5 divide-y divide-ink-400/10 rounded-2xl border border-ink-400/15 bg-surface p-4 shadow-sm">
         <FilterChips label="题型" options={typeOptions} value={typeFilter} onChange={setTypeFilter} />
         {sceneOptions && (
           <FilterChips label="场景" options={sceneOptions} value={sceneFilter} onChange={setSceneFilter} />
@@ -39,24 +39,24 @@ export function QuestionBankList({ title, books, types, scenes }: QuestionBankLi
             header={
               <span>
                 <span className="font-bold">{book.title}</span>
-                <span className="ml-2 text-xs text-white/70">{book.subtitle}</span>
+                <span className="ml-2 text-xs text-brand-600/70">{book.subtitle}</span>
               </span>
             }
           >
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {book.tests.map((test) => (
-                <div key={test.id}>
+                <div key={test.id} className="rounded-xl bg-surface-alt/60 p-3">
                   <h4 className="mb-2 text-sm font-semibold text-ink-800">{test.title}</h4>
                   <div className="flex flex-col gap-2">
                     {test.parts.map((part) => (
-                      <div key={part.id} className="rounded border border-ink-400/15 p-2">
-                        <div className="mb-1 text-xs font-medium text-ink-600">{part.title}</div>
-                        <div className="flex flex-col gap-1">
+                      <div key={part.id} className="rounded-lg border border-ink-400/15 bg-surface p-2.5">
+                        <div className="mb-1.5 text-xs font-medium text-ink-600">{part.title}</div>
+                        <div className="flex flex-col gap-1.5">
                           {part.items.map((item) => (
                             <button
                               key={item.id}
                               type="button"
-                              className="flex items-center justify-between rounded bg-surface-alt px-2 py-1 text-xs hover:bg-brand-50"
+                              className="flex items-center justify-between rounded-full bg-surface-alt px-3 py-1.5 text-xs transition hover:bg-brand-50"
                             >
                               <span>
                                 {item.type && <span className="mr-1 text-ink-400">{item.type}</span>}
