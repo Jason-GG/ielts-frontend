@@ -1,8 +1,8 @@
-# 同桌英语自学网 (itongzhuo IELTS) — Platform Catalogue, Feature Map & Design Analysis
+# 点对点英语学习网 (itongzhuo IELTS) — Platform Catalogue, Feature Map & Design Analysis
 
 > **Subject:** `https://ielts.itongzhuo.com/business/ielts/student/stuIndex.do?courseType=1`
 > **Operator:** 珠海同桌教育科技有限公司 (Zhuhai Tongzhuo Education Technology Co., Ltd.)
-> **Brand:** 同桌英语自学网 / 同桌英语 ("Study IELTS with a deskmate")
+> **Brand:** 点对点英语学习网 / 同桌英语 ("Study IELTS with a deskmate")
 > **Audit date:** 1 November 2026 · **Viewport:** 1440 × 900 desktop, Chrome 156
 > **Method:** anonymous crawl of public pages (headless Chrome + DOM/CSS extraction), screenshots retained in `images/`
 > **Coverage:** all publicly reachable pages and modals. Authenticated areas (the actual test runner, results, account centre) sit behind WeChat login and are **not** covered visually — see §10.

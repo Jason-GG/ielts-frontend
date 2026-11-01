@@ -59,10 +59,10 @@ export function Header() {
       <div className="mx-auto flex h-[70px] max-w-[1300px] items-center justify-between px-[70px]">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
-            同
+            点
           </div>
           <div>
-            <div className="text-base font-extrabold tracking-tight text-ink-900">同桌英语自学网</div>
+            <div className="text-base font-extrabold tracking-tight text-ink-900">点对点英语学习网</div>
             <div className="text-[11px] text-ink-400">让雅思学习更简单</div>
           </div>
         </div>
