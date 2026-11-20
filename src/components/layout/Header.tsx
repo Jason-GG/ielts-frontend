@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
+import { BookingModal } from '../membership/BookingModal'
 import { LoginModal } from '../membership/LoginModal'
 import { MembershipModal } from '../membership/MembershipModal'
 
@@ -51,13 +52,24 @@ const NAV_ITEMS: { label: string; to: string; hot?: boolean; dropdown?: { label:
 ]
 
 export function Header() {
-  const [loginOpen, setLoginOpen] = useState(false)
-  const [membershipOpen, setMembershipOpen] = useState(false)
+  const {
+    user,
+    loginOpen,
+    membershipOpen,
+    bookingTarget,
+    openLoginModal,
+    closeLoginModal,
+    openMembershipModal,
+    closeMembershipModal,
+    openBookingModal,
+    closeBookingModal,
+    logout,
+  } = useAuth()
 
   return (
     <header className="sticky top-0 z-40 bg-surface shadow-sm">
       <div className="mx-auto flex h-[70px] max-w-[1300px] items-center justify-between px-[70px]">
-        <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
             点
           </div>
@@ -65,9 +77,16 @@ export function Header() {
             <div className="text-base font-extrabold tracking-tight text-ink-900">点对点英语学习网</div>
             <div className="text-[11px] text-ink-400">让雅思学习更简单</div>
           </div>
-        </div>
+        </Link>
         <button
           type="button"
+          onClick={() =>
+            openBookingModal({
+              serviceType: 'tutor_onboarding',
+              title: '机构 / 独立老师入驻申请',
+              planName: 'B2B 专属教学工作台与白标题库合作',
+            })
+          }
           className="rounded-full bg-brand-600 px-5 py-2 text-xs font-semibold text-white hover:bg-brand-700"
         >
           机构/老师入驻
@@ -111,25 +130,52 @@ export function Header() {
             ))}
           </ul>
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setLoginOpen(true)}
-              className="rounded-full border border-ink-900/15 px-4 py-1.5 text-ink-800 hover:bg-surface-alt"
-            >
-              登录
-            </button>
-            <button
-              type="button"
-              onClick={() => setMembershipOpen(true)}
-              className="rounded-full bg-accent-500 px-4 py-1.5 text-white hover:bg-accent-600"
-            >
-              注册
-            </button>
+            {user ? (
+              <>
+                <button
+                  type="button"
+                  onClick={openMembershipModal}
+                  className="flex items-center gap-2 rounded-full bg-brand-50 px-3.5 py-1.5 text-xs font-semibold text-brand-700 hover:bg-brand-100"
+                >
+                  <span>{user.display_name}</span>
+                  {user.is_vip ? (
+                    <span className="rounded-full bg-accent-500 px-2 py-0.5 text-[10px] text-white">VIP</span>
+                  ) : (
+                    <span className="rounded-full bg-ink-400/20 px-2 py-0.5 text-[10px] text-ink-600">开通会员</span>
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => logout()}
+                  className="rounded-full border border-ink-900/15 px-3 py-1 text-xs text-ink-600 hover:bg-surface-alt"
+                >
+                  退出
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={openLoginModal}
+                  className="rounded-full border border-ink-900/15 px-4 py-1.5 text-ink-800 hover:bg-surface-alt"
+                >
+                  登录
+                </button>
+                <button
+                  type="button"
+                  onClick={openMembershipModal}
+                  className="rounded-full bg-accent-500 px-4 py-1.5 text-white hover:bg-accent-600"
+                >
+                  会员 / 注册
+                </button>
+              </>
+            )}
           </div>
         </div>
       </nav>
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
-      <MembershipModal open={membershipOpen} onClose={() => setMembershipOpen(false)} />
+      <LoginModal open={loginOpen} onClose={closeLoginModal} />
+      <MembershipModal open={membershipOpen} onClose={closeMembershipModal} />
+      <BookingModal target={bookingTarget} onClose={closeBookingModal} />
     </header>
   )
 }

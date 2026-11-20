@@ -82,10 +82,17 @@ export const READING_BOOKS_G: BookGroup[] = Array.from({ length: 4 }, (_, i) =>
 
 export interface WritingPaper {
   id: string
+  testId?: number
+  sectionId?: number
+  questionId?: number
   title: string
   type: string
+  taskNumber?: number
   prompt: string
   task: string
+  modelGuidance?: string
+  pageImageUrls?: string[]
+  status?: ProgressStatus
 }
 
 export const WRITING_PAPERS_A: WritingPaper[] = Array.from({ length: 8 }, (_, i) => {

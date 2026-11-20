@@ -1,33 +1,60 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { api } from '../api/client'
+import { useAuth } from '../context/AuthContext'
 
 const SECTIONS = [
   {
     eyebrow: 'Listening',
     title: '听力真题题库',
     to: '/bank/listening',
-    bullets: ['完整机考界面', 'C4–20 真题', '68 套 A / 50 套 G', '专家答案解析', '原文+分段音频'],
+    bullets: ['完整机考界面', 'C1–C21 剑雅 + 9分达人 1–7', '分段音频流媒体播放', '专家中文答案解析', '原文对照+题型场景筛选'],
   },
   {
     eyebrow: 'Speaking',
     title: '口语题库',
     to: '/speaking',
-    bullets: ['2026 Sep–Dec 最新题库', 'Part 1/2/3 全覆盖', '新旧题标签', 'AI 定制素材+音频'],
+    bullets: ['2026 Sep–Dec 最新题库', '剑雅真题 Part 1/2/3 全覆盖', '新旧题与必考话题标签', '高分思路示范+一键组卷'],
   },
   {
     eyebrow: 'Reading',
     title: '阅读真题题库',
     to: '/bank/reading-a',
-    bullets: ['A/G 全覆盖', '题型+场景筛选', '专家答案解析'],
+    bullets: ['A类 / G类 全覆盖', '双栏原文段落对照阅读', '题型+十大高频场景筛选', '自动判分与 9 分制换算'],
   },
   {
     eyebrow: 'Writing',
     title: '写作真题题库',
     to: '/bank/writing-a',
-    bullets: ['高分范文', 'AI 作文反馈', 'Task 1/2 全覆盖'],
+    bullets: ['剑雅 Task 1 / Task 2 完整题库', '实时字数统计与审题提示', '考官范文思路与评分标准解析'],
   },
 ]
 
 export function Home() {
+  const { user, openLoginModal, openMembershipModal } = useAuth()
+  const [stats, setStats] = useState<{
+    total_books: number
+    total_tests: number
+    total_sections: number
+    total_questions: number
+  } | null>(null)
+
+  useEffect(() => {
+    api
+      .getHomeSummary()
+      .then((res) => setStats(res.stats))
+      .catch(() => {})
+  }, [])
+
+  const heroBullets = [
+    stats
+      ? `已收录 ${stats.total_books} 本真题集 · ${stats.total_tests} 套试卷 · ${stats.total_questions.toLocaleString()} 道真题`
+      : '68 套 A 类 / 50 套 G 类真题',
+    '专家精讲答案解析与 IELTS 9 分制自动批改',
+    '刘夏来听力语料库拼写听写 + 错词本自动收录',
+    '10000+ 活跃考生同期备考',
+  ]
+
   return (
     <div className="flex flex-col gap-10">
       <section className="relative overflow-hidden rounded-2xl bg-lavender-50 px-10 py-14">
@@ -44,25 +71,51 @@ export function Home() {
           </p>
 
           <ul className="mt-6 space-y-2 text-sm text-ink-800">
-            {['68 套 A 类 / 50 套 G 类真题', '专家精讲答案解析', '口语/写作 AI 素材库', '10000+ 活跃考生同期备考'].map(
-              (item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                    ✓
-                  </span>
-                  {item}
-                </li>
-              ),
-            )}
+            {heroBullets.map((item) => (
+              <li key={item} className="flex items-center gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  ✓
+                </span>
+                {item}
+              </li>
+            ))}
           </ul>
 
           <div className="mt-8 flex gap-3">
-            <button type="button" className="rounded-full bg-accent-500 px-7 py-2.5 text-sm font-semibold text-white hover:bg-accent-600">
-              立即注册
-            </button>
-            <button type="button" className="rounded-full border border-brand-500 px-7 py-2.5 text-sm font-semibold text-brand-600 hover:bg-brand-500 hover:text-white">
-              登录
-            </button>
+            {user ? (
+              <>
+                <Link
+                  to="/bank/listening"
+                  className="rounded-full bg-accent-500 px-7 py-2.5 text-sm font-semibold text-white hover:bg-accent-600"
+                >
+                  开始刷题
+                </Link>
+                <button
+                  type="button"
+                  onClick={openMembershipModal}
+                  className="rounded-full border border-brand-500 px-7 py-2.5 text-sm font-semibold text-brand-600 hover:bg-brand-500 hover:text-white"
+                >
+                  查看会员权益
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={openLoginModal}
+                  className="rounded-full bg-accent-500 px-7 py-2.5 text-sm font-semibold text-white hover:bg-accent-600"
+                >
+                  立即注册 / 体验登录
+                </button>
+                <button
+                  type="button"
+                  onClick={openLoginModal}
+                  className="rounded-full border border-brand-500 px-7 py-2.5 text-sm font-semibold text-brand-600 hover:bg-brand-500 hover:text-white"
+                >
+                  登录
+                </button>
+              </>
+            )}
           </div>
         </div>
       </section>

@@ -77,7 +77,7 @@ export const LISTENING_WORD_BOOKS: WordBook[] = [
 export interface SpecialtySeries {
   id: string
   title: string
-  cards: { title: string; count: number; note?: string }[]
+  cards: { id?: string; title: string; count: number; note?: string; mastered?: number; myAccuracy?: number | null }[]
 }
 
 export const SPECIALTY_SERIES: SpecialtySeries[] = [

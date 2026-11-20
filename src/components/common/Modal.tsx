@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 
 interface ModalProps {
   open: boolean
@@ -9,9 +9,27 @@ interface ModalProps {
 }
 
 export function Modal({ open, title, onClose, children, widthClass = 'max-w-lg' }: ModalProps) {
+  useEffect(() => {
+    if (!open) return
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [open, onClose])
+
   if (!open) return null
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+    <div
+      role="dialog"
+      aria-modal="true"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+    >
       <div className={`w-full ${widthClass} rounded-lg bg-surface shadow-xl`}>
         <div className="flex items-center justify-between border-b border-ink-400/15 px-5 py-3">
           <h3 className="text-base font-semibold text-ink-900">{title}</h3>

@@ -1,32 +1,34 @@
-# React + TypeScript + Vite
+# IELTS Study Platform Frontend (`ielts-frontend`)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React 19 + TypeScript + Tailwind CSS v4 + Vite 8 frontend for the IELTS Study Platform (**点对点英语学习网**), proxying `/api` and `/static` requests to `ielts-backend` (`http://127.0.0.1:8001`).
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Development / Preview Server (`port 5173`)
+```bash
+npm install
+npm run build
+./start.sh              # Foreground
+./start.sh --daemon     # Background daemon (ielts_frontend.log)
+./start.sh stop         # Stop daemon
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Contract & Build Tests
+```bash
+npm test
+```
+
+### Automated Implementation & Remote Deployment (`deploy.sh`)
+Provisions Node.js 22 LTS, installs dependencies, builds `dist/`, configures `.env`, registers and starts `ielts-frontend.service` on port `5173`, and executes the end-to-end proxy contract tests:
+
+```bash
+# Deploy remotely over SSH to root@101.37.105.86 (or setup locally when run on the server)
+./deploy.sh
+
+# Run local setup & systemd service registration directly on the server
+./deploy.sh local
+
+# Lifecycle & verification commands
+./deploy.sh status
+./deploy.sh health
+```
